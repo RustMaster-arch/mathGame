@@ -9,7 +9,7 @@ const Home = async () => {
   if (!clerkUser) redirect("/sign-in")
 
   return (
-    <div>
+    <div className='flex flex-col text-center'>
       <Header className='sticky left-0 top-0'>
         <div className='flex items-center gap-2 lg:gap-4'>
           <SignedIn>
@@ -17,6 +17,8 @@ const Home = async () => {
           </SignedIn>
         </div>
       </Header>
+
+      <h1 className='h1'>Leader Board</h1>
 
     </div>
   )

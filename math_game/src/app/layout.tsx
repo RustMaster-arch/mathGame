@@ -17,13 +17,13 @@ export default function RootLayout({
     <ClerkProvider appearance={{
       baseTheme: dark,
       variables: {
-        colorPrimary: "#3371FF",
+        colorPrimary: "#FFFFFF",
         fontSize: "16px",
       },
     }}>
       <html lang="en">
         <body
-          className={`antialiased bg-slate-900`}
+          className={`antialiased bg-black`}
         >
           {children}
         </body>
