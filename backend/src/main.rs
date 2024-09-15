@@ -1,11 +1,12 @@
 use axum::{
-    extract::{Path, State},
+    extract::{Path, Query, State},
     http::StatusCode,
     response::IntoResponse,
     routing::get,
     Json, Router,
 };
 use serde_json::to_string;
+use tower_http::cors::CorsLayer;
 use std::sync::Arc;
 mod structs;
 use structs::{ClientRequest, Question, UIQuestion};
@@ -58,9 +59,12 @@ async fn main() {
         very_hard,
     });
 
+    let cors = CorsLayer::permissive();
+
     let app = Router::new()
         .route("/:difficulty", get(questions))
         .route("/correct", get(correct))
+        .layer(cors)
         .with_state(app_state);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
@@ -81,17 +85,18 @@ async fn questions(Path(difficulty): Path<String>, State(state): State<Arc<AppSt
     Ok(Json(ui_questions))
 }
 
-async fn correct(State(state): State<Arc<AppState>>, Json(ui_question): Json<ClientRequest>) -> Result<impl IntoResponse, StatusCode> {
+async fn correct(State(state): State<Arc<AppState>>, Query(ui_question): Query<ClientRequest>) -> Result<impl IntoResponse, StatusCode> {
     let questions = match ui_question.difficulty.as_str() {
         "easy" => &state.easy,
         "medium" => &state.medium,
         "hard" => &state.hard,
         "very_hard" => &state.very_hard,
-        _ => return Err(StatusCode::NOT_FOUND),
+        _ => return Err(StatusCode::NOT_ACCEPTABLE),
     };
 
     let result = questions.iter().find_map(|question| {
-        if UIQuestion::from(question.clone()) == ui_question.ui_question && ui_question.answer == question.answers[question.correct_index] {
+        if question.question == questions[ui_question.question_index].question && 
+        question.answers[ui_question.answer_index] == question.answers[question.correct_index] {
             return Some(true)
         } else {
             return None

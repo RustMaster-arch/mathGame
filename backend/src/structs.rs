@@ -15,9 +15,9 @@ pub struct Question {
 
 #[derive(Clone, Serialize, Deserialize, Default, Debug)]
 pub struct ClientRequest {
-    pub ui_question: UIQuestion,
+    pub question_index: usize,
     pub difficulty: String,
-    pub answer: String,
+    pub answer_index: usize,
 }
 
 impl Question {

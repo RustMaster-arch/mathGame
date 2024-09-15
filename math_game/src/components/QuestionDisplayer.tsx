@@ -19,42 +19,41 @@ const accents = [
   "bg-[#FF8C00]",
 ];
 
-async function correct(difficulty: string, answer: string, question: Question): Promise<boolean> {
-  const response = await fetch(`http://localhost:8080/correct`, {
-    cache: 'no-store',
-    method: "GET",
-    body: JSON.stringify({
-      ui_question: JSON.stringify(question),
-      difficulty: difficulty,
-      answer: answer,
-    }),
-  });
+async function correct(difficulty: string, answerIndex: number, questionIndex: number): Promise<boolean> {
+  const response = await fetch(`http://localhost:8080/correct?question_index=${questionIndex}&difficulty=${difficulty}&answer_index=${answerIndex}`)
 
-  return response.json();
+  return response.json()
 }
 
 const QuestionDisplayer = (props: Props) => {
   const [index, setIndex] = useState(0);
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>();
 
   const indexHandler = () => {
     if (index === props.questions.length - 1) {
+      setIsCorrect(false);
       setIndex(0);
+      console.log("index: 0");
       return;
     }
+    setIsCorrect(false);
     setIndex(index + 1);
+    console.log("index: " + index + 1);
   }
-
-  const correctHandler = async (difficulty: string, question: Question, answer: string) => {
-    const res = await correct(difficulty, answer, question);
+  
+  const correctHandler = async (difficulty: string, questionIndex: number, answerIndex: number) => {
+    const res = await correct(difficulty, answerIndex, questionIndex);
     if (res === true) {
+      setTimeout(() => indexHandler(), 2000)
       console.log("correct!")
-      setIsCorrect(true);
+      setIsCorrect(true)
       return
     }
 
+    setTimeout(() => indexHandler(), 2000)
     console.log("incorrect!")
-    setIsCorrect(false);
+    setIsCorrect(false)
+    return
   }
 
   const accentColor = accents[index % accents.length];
@@ -67,23 +66,14 @@ const QuestionDisplayer = (props: Props) => {
       {props.questions[index].answers.map((answer, answerIndex) => (
         <button
           key={answerIndex}
-          className={`text-black pt m-3 w-full rounded bc ${accentColor}`}
-          onClick={async () => await correctHandler(props.difficulty, props.questions[index], answer)}
+          className={`text-black pt m-3 w-full rounded ${accentColor} ${isCorrect ? "border-4 border-green-500" : ""}`}
+          onClick={async () => await correctHandler(props.difficulty, index, answerIndex)}
         >
           {answer}
         </button>
       ))}
-      <div className="mt-4">
-        <button 
-          className="bg-blue-500 text-white p-2 rounded"
-          onClick={indexHandler}
-        >
-          Next Question
-        </button>
-      </div>
     </div>
   );
 }
 
 export default QuestionDisplayer;
-
