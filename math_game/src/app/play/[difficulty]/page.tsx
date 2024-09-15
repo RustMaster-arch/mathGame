@@ -20,7 +20,7 @@ const page = async ({ params }: {params: {difficulty: string}}) => {
 
   return (
     <>
-      <div className="some flex flex-col">
+      <div className="some flex flex-col h-full">
           <QuestionDisplayer questions={res} difficulty={params.difficulty}/>
       </div>
     </>

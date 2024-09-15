@@ -23,7 +23,7 @@ export default function RootLayout({
     }}>
       <html lang="en">
         <body
-          className={`antialiased body`}
+          className={`antialiased body h-screen`}
         >
           {children}
         </body>

@@ -1,0 +1,11 @@
+/home/juannvrs/Documents/sciense_project/backend/target/debug/deps/libconsole-473bf8d6d2cf0572.rmeta: /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/lib.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/common_term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/kb.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/unix_term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/utils.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/ansi.rs
+
+/home/juannvrs/Documents/sciense_project/backend/target/debug/deps/console-473bf8d6d2cf0572.d: /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/lib.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/common_term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/kb.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/unix_term.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/utils.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/ansi.rs
+
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/lib.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/common_term.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/kb.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/term.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/unix_term.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/utils.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.8/src/ansi.rs:

@@ -1,0 +1,12 @@
+/home/juannvrs/Documents/sciense_project/backend/target/debug/deps/libsqlx-431b9429f3630c9d.rmeta: /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md
+
+/home/juannvrs/Documents/sciense_project/backend/target/debug/deps/sqlx-431b9429f3630c9d.d: /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md /home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md
+
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/mod.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/mod.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/ty_match.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/spec_error.rs:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/lib.md:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/macros/test.md:
+/home/juannvrs/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sqlx-0.8.2/src/any/install_drivers_note.md:
