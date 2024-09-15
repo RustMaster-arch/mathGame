@@ -7,6 +7,7 @@ interface Questions {
 
 async function questions(difficulty: string): Promise<Questions[]> {
   const response = await fetch(`http://localhost:8080/${difficulty}`, {
+    cache: 'no-store',
     method: "GET",
   });
 
@@ -20,7 +21,7 @@ const page = async ({ params }: {params: {difficulty: string}}) => {
   return (
     <>
       <div className="some flex flex-col">
-          <QuestionDisplayer questions={res}/>
+          <QuestionDisplayer questions={res} difficulty={params.difficulty}/>
       </div>
     </>
   )

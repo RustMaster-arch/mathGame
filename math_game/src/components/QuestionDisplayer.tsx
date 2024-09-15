@@ -9,6 +9,7 @@ interface Question {
 
 interface Props {
   questions: Question[],
+  difficulty: string,
 }
 
 const accents = [
@@ -18,9 +19,15 @@ const accents = [
   "bg-[#FF8C00]",
 ];
 
-async function correct(difficulty: string): Promise<boolean> {
-  const response = await fetch(`http://localhost:8080/${difficulty}`, {
+async function correct(difficulty: string, answer: string, question: Question): Promise<boolean> {
+  const response = await fetch(`http://localhost:8080/correct`, {
+    cache: 'no-store',
     method: "GET",
+    body: JSON.stringify({
+      ui_question: JSON.stringify(question),
+      difficulty: difficulty,
+      answer: answer,
+    }),
   });
 
   return response.json();
@@ -28,6 +35,7 @@ async function correct(difficulty: string): Promise<boolean> {
 
 const QuestionDisplayer = (props: Props) => {
   const [index, setIndex] = useState(0);
+  const [isCorrect, setIsCorrect] = useState(false);
 
   const indexHandler = () => {
     if (index === props.questions.length - 1) {
@@ -35,6 +43,18 @@ const QuestionDisplayer = (props: Props) => {
       return;
     }
     setIndex(index + 1);
+  }
+
+  const correctHandler = async (difficulty: string, question: Question, answer: string) => {
+    const res = await correct(difficulty, answer, question);
+    if (res === true) {
+      console.log("correct!")
+      setIsCorrect(true);
+      return
+    }
+
+    console.log("incorrect!")
+    setIsCorrect(false);
   }
 
   const accentColor = accents[index % accents.length];
@@ -48,6 +68,7 @@ const QuestionDisplayer = (props: Props) => {
         <button
           key={answerIndex}
           className={`text-black pt m-3 w-full rounded bc ${accentColor}`}
+          onClick={async () => await correctHandler(props.difficulty, props.questions[index], answer)}
         >
           {answer}
         </button>

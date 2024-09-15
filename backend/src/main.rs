@@ -1,12 +1,15 @@
 use axum::{
-    extract::{Path, State}, http::StatusCode, response::IntoResponse, routing::get, Json, Router
+    extract::{Path, State},
+    http::StatusCode,
+    response::IntoResponse,
+    routing::get,
+    Json, Router,
 };
 use serde_json::to_string;
 use std::sync::Arc;
 mod structs;
 use structs::{ClientRequest, Question, UIQuestion};
 
-// Define a struct to hold all the question sets
 struct AppState {
     easy: Vec<Question>,
     medium: Vec<Question>,
@@ -65,92 +68,35 @@ async fn main() {
 }
 
 async fn questions(Path(difficulty): Path<String>, State(state): State<Arc<AppState>>) -> Result<impl IntoResponse, StatusCode> {
-    match difficulty.as_str() {
-        "easy" => {
-            let ui_question: Vec<UIQuestion> = state.easy.iter().map(|question| UIQuestion::from(question.clone())).collect();
-            let state_string = to_string(&ui_question).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-            Ok((StatusCode::OK, [("content-type", "json")], state_string))
-        },
-        "medium" => {
-            let ui_question: Vec<UIQuestion> = state.medium.iter().map(|question| UIQuestion::from(question.clone())).collect();
-            let state_string = to_string(&ui_question).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-            Ok((StatusCode::OK, [("content-type", "json")], state_string))
-        },
-        "hard" => {
-            let ui_question: Vec<UIQuestion> = state.hard.iter().map(|question| UIQuestion::from(question.clone())).collect();
-            let state_string = to_string(&ui_question).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-            Ok((StatusCode::OK, [("content-type", "json")], state_string))
-        },
-        "very_hard" => {
-            let ui_question: Vec<UIQuestion> = state.very_hard.iter().map(|question| UIQuestion::from(question.clone())).collect();
-            let state_string = to_string(&ui_question).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-            Ok((StatusCode::OK, [("content-type", "json")], state_string))
-        },
-        _ => Err(StatusCode::NOT_ACCEPTABLE),
-    }
+    let questions = match difficulty.as_str() {
+        "easy" => &state.easy,
+        "medium" => &state.medium,
+        "hard" => &state.hard,
+        "very_hard" => &state.very_hard,
+        _ => return Err(StatusCode::NOT_ACCEPTABLE),
+    };
+
+    let ui_questions: Vec<UIQuestion> = questions.iter().map(|q| UIQuestion::from(q.clone())).collect();
+    
+    Ok(Json(ui_questions))
 }
 
-async fn correct(Json(ui_question): Json<ClientRequest>, State(state): State<Arc<AppState>>) -> Result<impl IntoResponse, StatusCode> {
-    match ui_question.difficulty.as_str() {
-        "easy" => {
-            Ok(state.easy.iter().find_map(|question| {
-                let index = question.correct_index;
-                let mut res = to_string(&false).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR).unwrap();
+async fn correct(State(state): State<Arc<AppState>>, Json(ui_question): Json<ClientRequest>) -> Result<impl IntoResponse, StatusCode> {
+    let questions = match ui_question.difficulty.as_str() {
+        "easy" => &state.easy,
+        "medium" => &state.medium,
+        "hard" => &state.hard,
+        "very_hard" => &state.very_hard,
+        _ => return Err(StatusCode::NOT_FOUND),
+    };
 
-                if UIQuestion::from(question.clone()) == ui_question.ui_question {
-                    if ui_question.answer == question.answers[index] {
-                        res = "true".to_string();
-                        return Some((StatusCode::OK, res))
-                    }
-                }
-                return None
-            }).unwrap())
-        },
+    let result = questions.iter().find_map(|question| {
+        if UIQuestion::from(question.clone()) == ui_question.ui_question && ui_question.answer == question.answers[question.correct_index] {
+            return Some(true)
+        } else {
+            return None
+        }
+    }).unwrap_or(false);
 
-        "midium" => {
-            Ok(state.medium.iter().find_map(|question| {
-                let index = question.correct_index;
-                let mut res = to_string(&false).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR).unwrap();
-
-                if UIQuestion::from(question.clone()) == ui_question.ui_question {
-                    if ui_question.answer == question.answers[index] {
-                        res = "true".to_string();
-                        return Some((StatusCode::OK, res))
-                    }
-                }
-                return None
-            }).unwrap())
-        },
-
-        "hard" => {
-            Ok(state.hard.iter().find_map(|question| {
-                let index = question.correct_index;
-                let mut res = to_string(&false).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR).unwrap();
-
-                if UIQuestion::from(question.clone()) == ui_question.ui_question {
-                    if ui_question.answer == question.answers[index] {
-                        res = "true".to_string();
-                        return Some((StatusCode::OK, res))
-                    }
-                }
-                return None
-            }).unwrap())
-        },
-
-        "very_hard" => {
-            Ok(state.very_hard.iter().find_map(|question| {
-                let index = question.correct_index;
-                let mut res = to_string(&false).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR).unwrap();
-
-                if UIQuestion::from(question.clone()) == ui_question.ui_question {
-                    if ui_question.answer == question.answers[index] {
-                        res = "true".to_string();
-                        return Some((StatusCode::OK, res))
-                    }
-                }
-                return None
-            }).unwrap())
-        },
-        _ => Err(StatusCode::INTERNAL_SERVER_ERROR),
-    }
+    Ok((StatusCode::OK, Json(result)))
 }

@@ -1,0 +1,1 @@
+fn(Json<ClientRequest>, axum::extract::State<Arc<AppState>>) -> impl Future<Output = Result<impl IntoResponse, StatusCode>> {correct}
