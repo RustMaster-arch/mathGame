@@ -1,9 +1,27 @@
-import React from 'react'
+import QuestionDisplayer from "@/components/QuestionDisplayer";
 
-const page = () => {
+interface Questions {
+  question: string,
+  answers: string[],
+}
+
+async function questions(difficulty: string): Promise<Questions[]> {
+  const response = await fetch(`http://localhost:8080/${difficulty}`, {
+    method: "GET",
+  });
+
+  return response.json();
+}
+
+const page = async ({ params }: {params: {difficulty: string}}) => {
+  const res = await questions(params.difficulty);
+  console.log(res);
+
   return (
     <>
-
+      <div className="some flex flex-col">
+          <QuestionDisplayer questions={res}/>
+      </div>
     </>
   )
 }

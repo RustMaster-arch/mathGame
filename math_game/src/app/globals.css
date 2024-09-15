@@ -4,13 +4,29 @@
 
 @layer utilities {
     .header {
-        @apply flex flex-row bg-gray-950; 
+        @apply flex flex-row bg-[#2D2D2D]; 
+    }
+
+    .body {
+        @apply bg-[#1E1E1E]
     }
 
     .sign {
-        @apply flex justify-center items-center 
+        @apply flex justify-center items-center my-3 p-3
     }
-    .h1 {
-        @apply text-white text-3xl m-3 p-3
+    .pt {
+        @apply text-white text-xl my-3 p-3
+    }
+
+    .st {
+        @apply text-[#B0B0B0] text-lg my-3 p-3
+    }
+
+    .bc {
+        @apply border-[#2D2D2D] my-3 p-3
+    }
+
+    .some {
+        @apply bg-[#1F1E1F] my-3 p-3
     }
 }
